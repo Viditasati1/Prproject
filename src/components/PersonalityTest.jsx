@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionset } from "../constants/index";
-import { getDatabase, ref, set } from "firebase/database";
-import { auth } from "../firebase/firebaseConfig"; // assuming you’re using Firebase Auth
+import { auth, db } from "../firebase/firebaseConfig"; // Use Firestore
+import { doc, setDoc } from "firebase/firestore";
 
 const PersonalityTest = () => {
   const navigate = useNavigate();
@@ -82,19 +82,26 @@ const PersonalityTest = () => {
     const submission = {
       age_group: ageGroup,
       responses: answers,
+      timestamp: new Date(), // Store timestamp for tracking
     };
 
     try {
-      await set(ref(getDatabase(), "quizResponses/" + user.uid), submission);
-      alert("Responses saved successfully!");
+      // Store responses in Firestore under "quizResponses/{userId}"
+      await setDoc(doc(db, "quizResponses", user.uid), submission);
+      alert("Responses saved successfully in Firestore!");
       navigate("/analysis");
     } catch (error) {
-      console.error("Error saving data:", error);
+      console.error("Error saving data to Firestore:", error);
+      alert("Failed to save responses. Please try again.");
     }
   };
 
   if (quizData.length === 0) {
-    return <div className="text-center mt-10 text-lg">No questions available for your age group.</div>;
+    return (
+      <div className="text-center mt-10 text-lg">
+        No questions available for your age group.
+      </div>
+    );
   }
 
   const currentQuestion = quizData[currentIndex];
@@ -102,14 +109,16 @@ const PersonalityTest = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F5F5DC] to-[#C0A080] flex items-center justify-center px-4">
       <div className="w-full max-w-3xl p-8 bg-white bg-opacity-95 rounded-lg shadow-lg text-center font-sans">
-        <h2 className="mb-6 text-3xl font-bold text-indigo-900">Personality Test</h2>
-  
+        <h2 className="mb-6 text-3xl font-bold text-indigo-900">
+          Personality Test
+        </h2>
+
         <div className="p-6 mb-6 bg-gray-100 border border-gray-300 rounded-lg hover:scale-[1.02] transition-transform duration-300 ease-in-out">
           <h3 className="mb-3 text-xl text-purple-700 font-semibold">
             Section: {currentQuestion.sectionName}
           </h3>
           <p className="text-lg mb-5 text-gray-800">{currentQuestion.text}</p>
-  
+
           <div className="flex flex-wrap justify-center gap-3">
             {currentQuestion.options.map((option, idx) => (
               <button
@@ -126,7 +135,7 @@ const PersonalityTest = () => {
             ))}
           </div>
         </div>
-  
+
         <div className="flex flex-col sm:flex-row justify-between gap-3 mt-6">
           <button
             onClick={handlePrevious}
@@ -139,7 +148,7 @@ const PersonalityTest = () => {
           >
             Previous
           </button>
-  
+
           {currentIndex < quizData.length - 1 ? (
             <button
               onClick={handleNext}
@@ -169,5 +178,6 @@ const PersonalityTest = () => {
       </div>
     </div>
   );
-            };  
+};
+
 export default PersonalityTest;

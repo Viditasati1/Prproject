@@ -1,0 +1,115 @@
+.yt-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #181818;
+    min-height: 100vh;
+    padding: 2rem;
+    color: white;
+}
+
+/* Video Wrapper - Looks like YouTube */
+.yt-video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    background-color: black;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.yt-video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Play Button Overlay */
+.yt-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.yt-play-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Progress Bar */
+.yt-controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.yt-controls.show {
+    opacity: 1;
+}
+
+.yt-progress-bar {
+    flex: 1;
+    appearance: none;
+    height: 6px;
+    background: #444;
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.yt-progress-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #3ea6ff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Buttons */
+.yt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.yt-btn {
+    background-color: #3ea6ff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.yt-btn:hover {
+    background-color: #1e8fef;
+}
+
+.go-btn {
+    background-color: #cc0000;
+}
+
+.go-btn:hover {
+    background-color: #aa0000;
+}

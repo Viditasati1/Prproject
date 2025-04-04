@@ -1,7 +1,8 @@
 // Import Firebase services
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database"; // Only needed if using Realtime Database
 import { getAnalytics } from "firebase/analytics";
 
 // Firebase configuration
@@ -17,12 +18,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const analytics = getAnalytics(app);
 
-// Export functions
-export { onAuthStateChanged, doc, getDoc, setDoc };
-
-export default app;
+export { app, auth, db, analytics };
