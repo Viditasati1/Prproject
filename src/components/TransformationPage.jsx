@@ -1,61 +1,98 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import "./TransformationPage.css";
 
 const TransformationPage = ({ goToTasks }) => {
-    const audioRef = useRef(null);
+    const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [showControls, setShowControls] = useState(true);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const updateProgress = () => setCurrentTime(video.currentTime);
+        const setVideoDuration = () => setDuration(video.duration);
+
+        video.addEventListener("timeupdate", updateProgress);
+        video.addEventListener("loadedmetadata", setVideoDuration);
+
+        return () => {
+            video.removeEventListener("timeupdate", updateProgress);
+            video.removeEventListener("loadedmetadata", setVideoDuration);
+        };
+    }, []);
 
     const togglePlayPause = () => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-            } else {
-                audioRef.current.play();
-            }
-            setIsPlaying(!isPlaying);
+        if (!videoRef.current) return;
+
+        if (isPlaying) {
+            videoRef.current.pause();
+        } else {
+            videoRef.current.play();
         }
+        setIsPlaying(!isPlaying);
     };
 
-    const replayAudio = () => {
-        if (audioRef.current) {
-            audioRef.current.currentTime = 0;
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
+    const handleProgressChange = (e) => {
+        const newTime = parseFloat(e.target.value);
+        videoRef.current.currentTime = newTime;
+        setCurrentTime(newTime);
+    };
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+        return `${minutes}:${seconds}`;
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-            {/* Enlarged Full-Width Image */}
-            <img 
-                src="/wisdom-img.jpg" 
-                alt="Wise Words" 
-                className="w-full h-[600px] md:h-[700px] object-contain rounded-lg shadow-lg mb-6"
-            />
+        <div className="yt-container">
+            {/* Video Container */}
+            <div className="yt-video-wrapper" 
+                onMouseEnter={() => setShowControls(true)}
+                onMouseLeave={() => setShowControls(false)}
+            >
+                <video ref={videoRef} className="yt-video" poster="/wisdom-img.jpg">
+                    <source src="/wisdom-audio.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </video>
 
-            {/* Audio Controls */}
-            <audio ref={audioRef} src="/wisdom-audio.mp3" />
+                {/* Play Button Overlay (for when video is paused) */}
+                {!isPlaying && (
+                    <div className="yt-play-button" onClick={togglePlayPause}>
+                        ▶️
+                    </div>
+                )}
+            </div>
 
-            {/* Buttons */}
-            <div className="flex space-x-4">
-                <button 
-                    onClick={togglePlayPause} 
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-                >
-                    {isPlaying ? "Pause" : "Play"}
+            {/* Progress Bar & Controls */}
+            <div className={`yt-controls ${showControls ? "show" : ""}`}>
+                <span>{formatTime(currentTime)}</span>
+                <input
+                    type="range"
+                    min="0"
+                    max={duration}
+                    value={currentTime}
+                    onChange={handleProgressChange}
+                    className="yt-progress-bar"
+                />
+                <span>{formatTime(duration)}</span>
+            </div>
+
+            {/* Play/Pause and Extra Buttons */}
+            <div className="yt-buttons">
+                <button onClick={togglePlayPause} className="yt-btn">
+                    {isPlaying ? "⏸ Pause" : "▶️ Play"}
                 </button>
 
-                <button 
-                    onClick={replayAudio} 
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition"
-                >
-                    Replay
+                <button onClick={() => { videoRef.current.currentTime = 0; videoRef.current.play(); setIsPlaying(true); }} className="yt-btn">
+                    🔄 Replay
                 </button>
 
-                <button 
-                    onClick={goToTasks} 
-                    className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
-                >
-                    Go to Daily Tasks Plan
+                <button onClick={goToTasks} className="yt-btn go-btn">
+                    📋 Go to Daily Tasks Plan
                 </button>
             </div>
         </div>
