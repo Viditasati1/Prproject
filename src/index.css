@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background: linear-gradient(to bottom,#F5F5DC, #C0A080);
+  min-height: 100vh;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+  background: #6A5ACD;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card:hover {
+  background: #5A4FCF;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.dashboard-card:active {
+  transform: scale(0.95);
+}
+
+/* Spacing Fix for Anchors */
+.hash-span {
+  margin-top: -100px;
+  padding-bottom: 100px;
+  display: block;
+}
+
+/* Gradient Backgrounds */
+.black-gradient {
+  background: linear-gradient(to right, #4a4a4a, #000000);
+}
+
+.violet-gradient {
+  background: linear-gradient(-90deg, #4B0082 0%, rgba(106, 90, 205, 0.5) 100%);
+}
+
+.soft-blue-gradient {
+  background: linear-gradient(-90deg, #6A5ACD 0%, rgba(173, 216, 230, 0.5) 100%);
+}
+
+.green-gradient {
+  background: linear-gradient(-90deg, #daebe8 0%, rgba(16, 185, 129, 0) 100%);
+}
+
+.green-pink-gradient {
+  background: linear-gradient(90.13deg, #6A5ACD 1.9%, #4B0082 97.5%);
+}
+
+/* Text Gradients */
+.text-gradient {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.orange-text-gradient {
+  background: linear-gradient(to top, #f5a623, #fbe7c6);
+}
+
+.green-text-gradient {
+  background: linear-gradient(to top, #11998e, #38ef7d);
+}
+
+.blue-text-gradient {
+  background: linear-gradient(to top, #2f80ed, #56ccf2);
+}
+
+.calm-pink-text-gradient {
+  background: linear-gradient(to top, #f3c4c4, #ffd1d1);
+}
+
+/* Loader Animation */
+.canvas-loader {
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.1s infinite ease;
+  transform: translateZ(0);
+}
+
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow: 0em -2.6em 0em 0em #6A5ACD,
+      1.8em -1.8em 0 0em rgba(106, 90, 205, 0.2),
+      2.5em 0em 0 0em rgba(106, 90, 205, 0.2),
+      1.75em 1.75em 0 0em rgba(106, 90, 205, 0.2),
+      0em 2.5em 0 0em rgba(106, 90, 205, 0.2),
+      -1.8em 1.8em 0 0em rgba(106, 90, 205, 0.2),
+      -2.6em 0em 0 0em rgba(106, 90, 205, 0.5),
+      -1.8em -1.8em 0 0em rgba(106, 90, 205, 0.7);
+  }
+  12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(106, 90, 205, 0.7),
+      1.8em -1.8em 0 0em #6A5ACD,
+      2.5em 0em 0 0em rgba(106, 90, 205, 0.2),
+      1.75em 1.75em 0 0em rgba(106, 90, 205, 0.2),
+      0em 2.5em 0 0em rgba(106, 90, 205, 0.2),
+      -1.8em 1.8em 0 0em rgba(106, 90, 205, 0.2),
+      -2.6em 0em 0 0em rgba(106, 90, 205, 0.2),
+      -1.8em -1.8em 0 0em rgba(106, 90, 205, 0.5);
+  }
+}
