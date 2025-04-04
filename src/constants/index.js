@@ -1,4 +1,3 @@
-
 export const navLinks = [
   {
     id: "about",
@@ -664,75 +663,172 @@ const questionset = {
 const firstTenDaysTasksSet = {
   "12_to_18": {
     "Self-Perception and Emotional Health": [
-      ["Write down three things you like about yourself.", "Practice positive affirmations for 5 minutes."],
-      ["Reflect on a recent emotional challenge and how you handled it.", "Avoid negative self-talk today."]
+      [
+        "Write down three things you like about yourself.",
+        "Practice positive affirmations for 5 minutes.",
+      ],
+      [
+        "Reflect on a recent emotional challenge and how you handled it.",
+        "Avoid negative self-talk today.",
+      ],
     ],
     "Social Life and Relationships": [
-      ["Reach out to a friend or family member for a meaningful conversation.", "Join a social or hobby group."],
-      ["Practice active listening in a conversation.", "Send an appreciation message to someone important."]
+      [
+        "Reach out to a friend or family member for a meaningful conversation.",
+        "Join a social or hobby group.",
+      ],
+      [
+        "Practice active listening in a conversation.",
+        "Send an appreciation message to someone important.",
+      ],
     ],
     "Habits and Coping Mechanisms": [
-      ["Practice deep breathing for 5 minutes.", "Write in a gratitude journal before bed."],
-      ["Go for a 20-minute walk.", "Reduce screen time by 30 minutes today."]
+      [
+        "Practice deep breathing for 5 minutes.",
+        "Write in a gratitude journal before bed.",
+      ],
+      [
+        "Go for a 20-minute walk.",
+        "Reduce screen time by 30 minutes today.",
+      ],
     ],
     "Career and Financial Stress": [
-      ["Plan your weekly career or financial goals.", "Track your expenses for the day."],
-      ["Learn about a new investment or savings option.", "Avoid unnecessary spending for a day."]
+      [
+        "Plan your weekly career or financial goals.",
+        "Track your expenses for the day.",
+      ],
+      [
+        "Learn about a new investment or savings option.",
+        "Avoid unnecessary spending for a day.",
+      ],
     ],
     "Overall Mental Health": [
-      ["Do 5 minutes of mindfulness meditation.", "Write down your thoughts and emotions in a journal."],
-      ["Engage in a relaxing activity (art, music, etc.).", "Avoid negative self-talk for the day."]
+      [
+        "Do 5 minutes of mindfulness meditation.",
+        "Write down your thoughts and emotions in a journal.",
+      ],
+      [
+        "Engage in a relaxing activity (art, music, etc.).",
+        "Avoid negative self-talk for the day.",
+      ],
     ],
     "Thoughts and Self-Control": [
-      ["Identify one negative thought and reframe it positively.", "Practice mindful eating at one meal today."],
-      ["Take a break from social media for a few hours.", "Observe your emotions without reacting immediately."]
-    ]
+      [
+        "Identify one negative thought and reframe it positively.",
+        "Practice mindful eating at one meal today.",
+      ],
+      [
+        "Take a break from social media for a few hours.",
+        "Observe your emotions without reacting immediately.",
+      ],
+    ],
   },
   "18_to_25": {
     "Career and Academic Pressure": [
-      ["Set a SMART goal for your career or studies.", "Break down a big academic/career goal into smaller steps."],
-      ["Schedule 1 hour of focused, distraction-free work today.", "Learn a new productivity technique (like Pomodoro)."]
+      [
+        "Set a SMART goal for your career or studies.",
+        "Break down a big academic/career goal into smaller steps.",
+      ],
+      [
+        "Schedule 1 hour of focused, distraction-free work today.",
+        "Learn a new productivity technique (like Pomodoro).",
+      ],
     ],
     "Personal Habits and Coping Mechanisms": [
-      ["Try deep breathing exercises for 5 minutes.", "Maintain a gratitude journal and write 3 things you are grateful for."],
-      ["Go for a 20-minute walk without your phone.", "Reduce screen time by 30 minutes today."]
+      [
+        "Try deep breathing exercises for 5 minutes.",
+        "Maintain a gratitude journal and write 3 things you are grateful for.",
+      ],
+      [
+        "Go for a 20-minute walk without your phone.",
+        "Reduce screen time by 30 minutes today.",
+      ],
     ],
     "Relationships and Social Life": [
-      ["Reach out to a friend or loved one for a meaningful conversation.", "Practice active listening in a conversation today."],
-      ["Join a social or hobby group related to your interests.", "Compliment someone genuinely today."]
+      [
+        "Reach out to a friend or loved one for a meaningful conversation.",
+        "Practice active listening in a conversation today.",
+      ],
+      [
+        "Join a social or hobby group related to your interests.",
+        "Compliment someone genuinely today.",
+      ],
     ],
     "Financial Stress": [
-      ["Track your expenses for the day in a journal or app.", "Create a simple budget for the week."],
-      ["Learn about one investment or savings option.", "Cook a meal at home instead of eating out."]
+      [
+        "Track your expenses for the day in a journal or app.",
+        "Create a simple budget for the week.",
+      ],
+      [
+        "Learn about one investment or savings option.",
+        "Cook a meal at home instead of eating out.",
+      ],
     ],
     "Overall Mental Health": [
-      ["Do 5 minutes of mindfulness meditation.", "Write down your thoughts and emotions in a journal."],
-      ["Engage in a relaxing activity (art, music, etc.).", "Avoid negative self-talk for the day."]
-    ]
+      [
+        "Do 5 minutes of mindfulness meditation.",
+        "Write down your thoughts and emotions in a journal.",
+      ],
+      [
+        "Engage in a relaxing activity (art, music, etc.).",
+        "Avoid negative self-talk for the day.",
+      ],
+    ],
   },
   "25_to_40": {
     "Career and Life Balance": [
-      ["Set clear boundaries between work and personal life.", "Plan your weekly schedule to balance work and leisure."],
-      ["Dedicate 30 minutes to a passion project.", "Avoid work emails after office hours."]
+      [
+        "Set clear boundaries between work and personal life.",
+        "Plan your weekly schedule to balance work and leisure.",
+      ],
+      [
+        "Dedicate 30 minutes to a passion project.",
+        "Avoid work emails after office hours.",
+      ],
     ],
     "Family and Social Responsibilities": [
-      ["Have a meaningful conversation with a family member.", "Spend quality time with your children or spouse without distractions."],
-      ["Help a family member with a task.", "Plan a family outing or gathering."]
+      [
+        "Have a meaningful conversation with a family member.",
+        "Spend quality time with your children or spouse without distractions.",
+      ],
+      [
+        "Help a family member with a task.",
+        "Plan a family outing or gathering.",
+      ],
     ],
     "Stress and Coping Mechanisms": [
-      ["Practice 10 minutes of guided meditation.", "Write down three things causing stress and one action for each."],
-      ["Try progressive muscle relaxation before bed.", "Take a 15-minute walk in nature."]
+      [
+        "Practice 10 minutes of guided meditation.",
+        "Write down three things causing stress and one action for each.",
+      ],
+      [
+        "Try progressive muscle relaxation before bed.",
+        "Take a 15-minute walk in nature.",
+      ],
     ],
     "Relationships and Emotional Health": [
-      ["Express appreciation to a friend or partner.", "Practice active listening during a conversation."],
-      ["Resolve a small conflict peacefully.", "Write a letter to yourself reflecting on personal growth."]
+      [
+        "Express appreciation to a friend or partner.",
+        "Practice active listening during a conversation.",
+      ],
+      [
+        "Resolve a small conflict peacefully.",
+        "Write a letter to yourself reflecting on personal growth.",
+      ],
     ],
     "Self-Care and Happiness": [
-      ["Take an hour to do something that brings you joy.", "Limit social media use today."],
-      ["Start a new book or hobby.", "Cook a healthy meal from scratch."]
-    ]
-  }
+      [
+        "Take an hour to do something that brings you joy.",
+        "Limit social media use today.",
+      ],
+      [
+        "Start a new book or hobby.",
+        "Cook a healthy meal from scratch.",
+      ],
+    ],
+  },
 };
+
 
 
 const services = [
@@ -764,4 +860,4 @@ const services = [
 ];
 
 
-export { services, questionset, firstTenDaysTasksSet };
+export { services, questionset, firstTenDaysTasksSet};

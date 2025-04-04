@@ -1,31 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase/firebaseConfig";
+import React from "react";
+import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const user = auth.currentUser; // Get currently logged-in user
-  const [profileData, setProfileData] = useState(null);
-
-  useEffect(() => {
-    // Fetch additional profile data from Firestore, if available.
-    const fetchProfileData = async () => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const docSnap = await getDoc(userDocRef);
-          if (docSnap.exists()) {
-            setProfileData(docSnap.data());
-          }
-        } catch (error) {
-          console.error("Error fetching profile data:", error.message);
-        }
-      }
-    };
-    fetchProfileData();
-  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -39,10 +19,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#cfe0e8] to-[#87bdd8] text-gray-900 flex justify-center items-center p-6">
       <div className="max-w-3xl w-full bg-white rounded-xl shadow-xl p-8">
+        
         {/* User Welcome Section */}
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold text-[#034752]">
-            Welcome, {profileData?.name || user?.displayName || "User"}! 🎉
+            Welcome, {user?.displayName || "User"}! 🎉
           </h2>
           <p className="text-gray-600">Manage your account and explore features.</p>
         </div>
@@ -68,9 +49,10 @@ const Dashboard = () => {
           {[
             { label: "Forum", path: "/forum" },
             { label: "Transform", path: "/transformation-resources" },
-            { label: "TransformPage", path: "/transformation-start" },
             { label: "Assessment", path: "/assessment" },
             { label: "Analysis", path: "/analysis" },
+            { label: "brahma", path: "/brahma" },
+
           ].map(({ label, path }) => (
             <div
               key={label}

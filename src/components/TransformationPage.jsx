@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TransformationPage.css";
 
 const TransformationPage = ({ goToTasks }) => {
+    const navigate = useNavigate(); // ✅ Moved inside the component
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -50,7 +52,7 @@ const TransformationPage = ({ goToTasks }) => {
     return (
         <div className="yt-container">
             {/* Video Container */}
-            <div className="yt-video-wrapper" 
+            <div className="yt-video-wrapper"
                 onMouseEnter={() => setShowControls(true)}
                 onMouseLeave={() => setShowControls(false)}
             >
@@ -91,7 +93,7 @@ const TransformationPage = ({ goToTasks }) => {
                     🔄 Replay
                 </button>
 
-                <button onClick={goToTasks} className="yt-btn go-btn">
+                <button onClick={() => navigate("/transformation")} className="yt-btn go-btn">
                     📋 Go to Daily Tasks Plan
                 </button>
             </div>
@@ -100,3 +102,4 @@ const TransformationPage = ({ goToTasks }) => {
 };
 
 export default TransformationPage;
+ transformationpage.jsx
