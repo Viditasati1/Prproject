@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { auth } from "./firebase/firebaseConfig";
+import { auth, db } from "./firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import BrahmacharyaBenefits from "./components/brahma";
 import BrahmacharyaTasks from "./components/21days_task";
 import Transformation from "./components/TransformationPage";
 import TransformationTasks from "./components/Transformation";
-import DemographicForm from "./components/DemographicForm"
+import DemographicForm from "./components/DemographicForm";
 import Forum from "./components/Forum";
+
 import {
   About,
   Login,
@@ -21,8 +23,6 @@ import {
   StarsCanvas,
   PersonalityTest,
   Analysis,
-  
-  
 } from "./components";
 
 const AppContent = () => {
@@ -32,13 +32,29 @@ const AppContent = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+
       if (currentUser) {
-        setIsNewUser(localStorage.getItem("isNewUser") === "true");
+        try {
+          const userDocRef = doc(db, "users", currentUser.uid);
+          const userSnapshot = await getDoc(userDocRef);
+
+          if (userSnapshot.exists()) {
+            const data = userSnapshot.data();
+            setIsNewUser(data.isNewUser === true);
+          } else {
+            setIsNewUser(true); // fallback
+          }
+        } catch (err) {
+          console.error("Error fetching user data from Firestore:", err);
+          setIsNewUser(true); // fallback
+        }
       }
+
+      setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -67,14 +83,23 @@ const AppContent = () => {
 
         <Route
           path="/demographic-info"
-          element={user && isNewUser ? <DemographicForm /> : <Navigate to="/" />}
+          element={
+            user && isNewUser ? (
+              <DemographicForm setIsNewUser={setIsNewUser} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
+
         <Route
           path="/dashboard"
           element={user && !isNewUser ? <Dashboard /> : <Navigate to="/" />}
         />
+
         <Route path="/assessment" element={<PersonalityTest />} />
         <Route path="/analysis" element={<Analysis />} />
+
         <Route
           path="/"
           element={
@@ -102,7 +127,7 @@ const AppContent = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-gradient-to-b from-[#F5F5DC] to-[#C0A080] ">
+      <div className="relative z-0 bg-gradient-to-b from-[#F5F5DC] to-[#C0A080]">
         <AppContent />
       </div>
     </BrowserRouter>
