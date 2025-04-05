@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionset } from "../constants/index";
-import { getDatabase, ref, set } from "firebase/database";
-import { auth } from "../firebase/firebaseConfig"; // assuming you’re using Firebase Auth
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/firebaseConfig";
 
 const PersonalityTest = () => {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ const PersonalityTest = () => {
     };
 
     try {
-      await set(ref(getDatabase(), "quizResponses/" + user.uid), submission);
+      await setDoc(doc(db, "quizResponses", user.uid), submission);
       alert("Responses saved successfully!");
       navigate("/analysis");
     } catch (error) {
