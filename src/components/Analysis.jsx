@@ -51,6 +51,7 @@ const SectionResult = ({ section }) => (
 const Analysis = () => {
   const navigate = useNavigate();
   const [analysisData, setAnalysisData] = useState(null);
+  const [historicalData, setHistoricalData] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -123,6 +124,28 @@ const Analysis = () => {
     };
   };
 
+  const fetchHistoricalData = async (userId) => {
+    try {
+      const docRef = doc(db, "quizHistory", userId);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.responses && Array.isArray(data.responses)) {
+          // Process historical data to get overall scores over time
+          const processed = data.responses.map((response, index) => ({
+            attempt: index + 1,
+            date: response.timestamp?.toDate().toLocaleDateString() || `Attempt ${index + 1}`,
+            score: processQuizData(response.responses, response.age_group)?.overallPercentage || 0
+          }));
+          setHistoricalData(processed);
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching historical data:", err);
+    }
+  };
+
   const fetchQuizResponses = async (userId) => {
     try {
       if (!userId) {
@@ -174,6 +197,7 @@ const Analysis = () => {
       setLoading(true);
       if (user) {
         fetchQuizResponses(user.uid);
+        fetchHistoricalData(user.uid);
       } else {
         setError("User not logged in.");
         setLoading(false);
@@ -189,6 +213,19 @@ const Analysis = () => {
       score: section.percentageScore,
     })) || []
   , [analysisData]);
+
+  const progressChartData = useMemo(() => {
+    if (!historicalData.length) return [];
+    
+    // Add current attempt to historical data if available
+    const current = analysisData ? [{
+      attempt: historicalData.length + 1,
+      date: "Current",
+      score: analysisData.overallPercentage
+    }] : [];
+    
+    return [...historicalData, ...current];
+  }, [historicalData, analysisData]);
 
   if (error) {
     return <div className="text-red-500 font-semibold text-center p-4">{error}</div>;
@@ -227,16 +264,34 @@ const Analysis = () => {
         </div>
 
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full h-64 bg-gray-100 p-4 rounded-lg shadow-md">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={sectionChartData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="score" fill="#3b82f6" name="Score (%)" />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="w-full space-y-6">
+            <div className="h-64 bg-gray-100 p-4 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold mb-2">Section Scores</h3>
+              <ResponsiveContainer width="100%" height="90%">
+                <BarChart data={sectionChartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis domain={[0, 100]} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="score" fill="#3b82f6" name="Score (%)" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {historicalData.length > 0 && (
+              <div className="h-64 bg-gray-100 p-4 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">Your Progress Over Time</h3>
+                <ResponsiveContainer width="100%" height="90%">
+                  <BarChart data={progressChartData}>
+                    <XAxis dataKey="date" />
+                    <YAxis domain={[0, 100]} />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="score" fill="#4ade80" name="Overall Score (%)" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
           </div>
 
           <button
