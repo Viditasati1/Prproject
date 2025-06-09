@@ -1,8 +1,26 @@
-# React + Vite
+# 🌅 Rise Up – Your Personal Growth Companion
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Rise Up** is a powerful self-development web application built to help users grow in five key dimensions of life through structured daily challenges and progress tracking. Whether you're a student, professional, or someone seeking better balance — Rise Up is your digital mentor.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
+
+- ✅ **21-Day Challenge** based on 5 core life areas
+- 📆 **Daily Goal Tracker** with completion status
+- 🔐 **Email Authentication** with Firebase
+- 🧠 **Mental Wellness Check-ins**
+- 📊 **User Progress Visualization** *(coming soon)*
+- 📱 **Responsive UI** with modern React design
+- ☁️ **Firebase Integration** for real-time sync and authentication
+
+
+## 🧱 Tech Stack
+
+| Category     | Tech Used               |
+|--------------|--------------------------|
+| Frontend     | React.js, Tailwind CSS   |
+| Authentication | Firebase Auth         |
+| Database     | Firestore (Firebase)     |
+| Hosting      | Firebase Hosting *(optional)* |
+| State Management | Context API           |
